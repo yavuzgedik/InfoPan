@@ -41,23 +41,30 @@ namespace InfoPan.UW
                     izsuList.Add(item);
                 }
             }
+            else
+            {
+                webView.NavigateToString("<h3>Bağlantı Sorunu!</h3>");
+            }
         }
 
         private async void feedBtn_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var item in izsuList)
+            while (true)
             {
-                izsuListBox.Items.Add(item.Title.Text);
-            }
+                foreach (var item in izsuList)
+                {
+                    izsuListBox.Items.Add(item.Title.Text);
+                }
 
-            int counter = 0;
-            foreach (var item in izsuList)
-            {
-                izsuListBox.SelectedItem = izsuListBox.Items[counter];
-                izsuListBox.ScrollIntoView(item.Title.Text);
-                webView.NavigateToString(item.Summary.Text);
-                await Task.Delay(1000);
-                counter++;
+                int counter = 0;
+                foreach (var item in izsuList)
+                {
+                    izsuListBox.SelectedItem = izsuListBox.Items[counter];
+                    izsuListBox.ScrollIntoView(item.Title.Text);
+                    webView.NavigateToString(item.Summary.Text);
+                    await Task.Delay(5000);
+                    counter++;
+                }
             }
         }
     }
